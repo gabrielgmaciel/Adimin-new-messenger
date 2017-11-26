@@ -22,7 +22,7 @@ if(isset ($_GET["admin"]) && $_GET["admin"]==1)
         Mensagem apagada com sucesso ! !
     </p>
 <?php } ?>
-<form>
+<form name="form" action="inserir_frases.php" method="post">
     <div class="container">
         <table class="table table-hover" width="80%">
             <thead class="thead-inverse">
@@ -39,7 +39,7 @@ if(isset ($_GET["admin"]) && $_GET["admin"]==1)
                 while ($array = mysqli_fetch_assoc($result)){
                 ?>
             <tr>
-                <td align="left"><?php echo utf8_encode($array['mensagem']) ?></td>
+                <td align="left"><?php echo $array['mensagem'] ?></td>
                 <td width="1"><label class="checkbox-inline"><center><input type="radio" name="id" id="id" value="<?php echo $array['id'] ?>"></center></label></td>
             </tr>
             <?php } ?>
@@ -50,10 +50,22 @@ if(isset ($_GET["admin"]) && $_GET["admin"]==1)
     <div class="container">
         <center>
             <input type="text" placeholder="Adicionar uma nova Frase" name="mensagem">
-            <button class="btn btn-success" formaction="inserir_frases.php" formmethod="post">Adicionar</button>
+            <button class="btn btn-success" type="submit" onclick="return validaForm();">Adicionar</button>
             <button class="btn btn-danger" formaction="apagar_frases.php" formmethod="post">Excluir</button>
         </center>
     </div><br><br><br><br><br><br><br>
 </form>
+<script  type="text/javascript">
+    function validaForm()
+    {
+        var select = form.mensagem.value;
+
+        if (select == "")
+        {
+            return false;
+        }
+
+    }
+</script>
 </body>
 </html>
