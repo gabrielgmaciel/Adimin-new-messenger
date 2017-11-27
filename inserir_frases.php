@@ -6,17 +6,14 @@ $mensagem = isset($_POST["mensagem"]) ? $_POST["mensagem"] : "";
 
 //inserindo dados na tabela "mensagens"
 
-$inserir ="INSERT INTO mensagens (mensagem) VALUES ('$mensagem')";
+$inserir ="INSERT INTO mensagens (mensagem) VALUES (UPPER ('$mensagem'))";
 
-$resul = mysqli_query($conexao,$inserir);
+$result = mysqli_query($conexao,$inserir);
 
-if($resul)
-{
-    header("location:frases.php?admin=0");
-}else
-{
-    $error = mysqli_error();
-    echo $error;
-
-}
+    if($result == 1){
+        echo "<script>location.href='frases.php'</script>";
+    }else{
+        echo "<script> alert('Erro ao inserir frase') </script>";
+        echo "<script>location.href='frases.php'</script>";
+    }
 ?>

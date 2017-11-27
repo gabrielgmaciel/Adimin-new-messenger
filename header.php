@@ -13,7 +13,7 @@
 				<li><a href="frases.php">Frases</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="index.php"><span class="glyphicon"></span> Sair</a></li>
+				<li><a href="s-login.php?x=1"><span class="glyphicon"></span>Sair</a></li>
 			</ul>
 		</div>
 	</nav>

@@ -12,7 +12,7 @@
 
 	<!--<div style="background-image:url(images/html.jpg)"><img src="fun.jpg"></div>-->
     <div width="100%">
-		<form action="s-login.php" method="GET" class="logando">
+		<form action="s-login.php" method="POST" class="logando" name="form">
 			<center>
 
 			<br><br><br><br><br><br>
@@ -23,24 +23,24 @@
                             <div>
                                 <input name="logon" type="text" placeholder="Usuário" onkeypress="check_values();">
                                 <input name="senha" type="password" placeholder="Senha" onkeypress="check_values();">
-                                <input type="submit" class="btn-danger" value="Entrar">
+                                <input type="submit" class="btn-danger" value="Entrar" onclick="return validaForm();">
                             </div>
                         </div>
 		</form>
     </div>
+    <script type="text/javascript">
+        function validaForm()
+        {
+            var usuario = form.logon.value;
+            var senha = form.senha.value;
 
-    </body>
-
+            if (usuario == "" || senha == "")
+            {
+                alert("Insira usuario e senha!");
+                form.logon.select();
+                return false;
+            }
+        }
+    </script>
+</body>
 </html>
-
-<?php
-	
-	if (isset ($_GET["login"])&&$_GET ["login"] == 0){
-?>
-	
-	<p class="alert-danger" style="width:10%">
-		Usuário inválido 
-	</p>
-<?php
-	} 
-?>

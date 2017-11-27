@@ -1,22 +1,19 @@
 <?php
-require_once ("conect.php");
+require_once "conect.php";
+include "conect.php";
 
-$id = isset($_POST["id"]) ? $_POST["id"] : "";
+$id = $_REQUEST['codigo'];
 
-//função para deletar mensagens
-function apagaMensagem($conexao,$id)
-{
-    global $id;
-    $sql = "DELETE FROM mensagens WHERE id='{$id}'";
-    $result = mysqli_query($conexao,$sql);
-    return $result;
-}
-if (apagaMensagem($conexao,$id))
-{
-    header("location: frases.php?admin=1");
-}else
-{
-    header("location: edita.php");
+
+if ($id != "") {
+    $query = $conexao->query("DELETE FROM mensagens WHERE id = '{$id}'");
+    $result = mysqli_commit($conexao, $query);
+    if ($result == 1) {
+        echo "<script>location.href='frases.php'</script>";
+    } else {
+        echo "<script> alert('Erro ao apagar a frase') </script>";
+        echo "<script>location.href='frases.php'</script>";
+    }
 }
 
 ?>

@@ -4,6 +4,8 @@
     <?php
     include "header.php";
     require_once "conect.php";
+    require_once "s-login.php";
+    protegePagina();
     ?>
     <title>Users</title>
 </head>
@@ -22,12 +24,13 @@ if(isset ($_GET["admin"]) && $_GET["admin"]==1)
         Mensagem apagada com sucesso ! !
     </p>
 <?php } ?>
-<form>
+<form name="form" action="inserir_frases.php" method="post">
     <div class="container">
         <table class="table table-hover" width="80%">
             <thead class="thead-inverse">
                 <tr>
-                    <th><center>Frases de Envio</center></th>
+                    <th align="left">Frases de Envio</th>
+                    <th></th>
                 </tr>
             </thead>
                 <?php
@@ -39,8 +42,8 @@ if(isset ($_GET["admin"]) && $_GET["admin"]==1)
                 while ($array = mysqli_fetch_assoc($result)){
                 ?>
             <tr>
-                <td align="left"><?php echo utf8_encode($array['mensagem']) ?></td>
-                <td width="1"><label class="checkbox-inline"><center><input type="radio" name="id" id="id" value="<?php echo $array['id'] ?>"></center></label></td>
+                <td align="left"><?php echo $array['mensagem'] ?></td>
+                <td align='center'><a href="apagar_frases.php?codigo=<?php echo $id = $array['id'];?>"onclick="return confirm('Deseja realmente excluir essa frase?')"><img src="img/lixeira.png" width="25px" height="25px"></a></td>
             </tr>
             <?php } ?>
             <?php }
@@ -49,11 +52,22 @@ if(isset ($_GET["admin"]) && $_GET["admin"]==1)
     </div>
     <div class="container">
         <center>
-            <input type="text" placeholder="Adicionar uma nova Frase" name="mensagem">
-            <button class="btn btn-success" formaction="inserir_frases.php" formmethod="post">Adicionar</button>
-            <button class="btn btn-danger" formaction="apagar_frases.php" formmethod="post">Excluir</button>
+            <input type="text" class="form-control" placeholder="Adicionar uma nova Frase" name="mensagem">
+            <button class="btn btn-success" type="submit" onclick="return validaForm();">Adicionar</button>
         </center>
     </div><br><br><br><br><br><br><br>
 </form>
+<script  type="text/javascript">
+    function validaForm()
+    {
+        var select = form.mensagem.value;
+
+        if (select == "")
+        {
+            return false;
+        }
+
+    }
+</script>
 </body>
 </html>
